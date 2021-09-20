@@ -1,0 +1,22 @@
+{
+  "name": "websockets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XolyExperience/WebSockets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XolyExperience/WebSockets/issues"
+  },
+  "homepage": "https://github.com/XolyExperience/WebSockets#readme",
+  "dependencies": {
+    "ws": "^8.2.2"
+  }
+}
