@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: monospace;
+    background-color: #222;
+    color: #ddd;
+}
+
+.center {
+    text-align: center;
+}
+
+.spaced {
+    margin: 1rem 0;
+}
+.box {
+    padding: 0 1rem;
+}
+
+input,
+button {
+    padding: 0.5rem;
+    background-color: #222;
+    color: #ddd;
+    outline: 2px solid #ddd;
+}
+
+.hidden {
+    display: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0.5rem 1rem;
+}
+
+li {
+    display: grid;
+    margin-top: 1rem;
+    grid-template-columns: 1fr 5fr 1fr;
+}

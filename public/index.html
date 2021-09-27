@@ -15,6 +15,24 @@
             websocket.addEventListener("close", (event) => {
                 console.log("Server died...", event);
             });
+            // listen on message event
+            websocket.addEventListener("message", (event) => {
+                console.log(event);
+            });
+            // använd endast data - object destructing
+            websocket.addEventListener("message", ({ data }) => {
+                // console.log(data);
+                let obj = parse(data);
+                console.log(obj);
+            });
+            function parse(data) {
+                try {
+                    return JSON.parse(data);
+                } catch (error) {
+                    console.log("Error parsing expected Json data: ", error);
+                    return;
+                }
+            }
         </script>
     </body>
 </html>

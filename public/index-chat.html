@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./styles/style.css" />
+        <title>WebChat</title>
+    </head>
+    <body>
+        <div class="center spaced box">
+            <h1>Time to chat!</h1>
+            <!-- Fält för nickname -->
+            <input
+                type="text"
+                id="inputNickname"
+                maxlength="8"
+                placeholder="Your name (3-8 characters)"
+            />
+            <button id="buttonNickname">Enter Chat!</button>
+        </div>
+        <br />
+        <hr />
+        <br />
+        <div class="box">
+            <input
+                type="text"
+                id="inputText"
+                placeholder="Type and press Enter"
+                class="hidden"
+            />
+        </div>
+        <ul id="conversation">
+            <li>
+                <span>Pippin</span>
+                <p>What about second breakfast?</p>
+                <time datetime="2021-09-27T13:32:000Z">13:32</time>
+            </li>
+            <li>
+                <span>Merry</span>
+                <p>What about second breakfast?</p>
+                <time datetime="2021-09-27T13:32:000Z">13:32</time>
+            </li>
+        </ul>
+
+        <template id="chat">
+            <li>
+                <span></span>
+                <p></p>
+                <time datetime=""></time>
+            </li>
+        </template>
+
+        <!-- Import ECMAScript modules -->
+        <script type="module">
+            // use websockets
+            const websocket = new WebSocket("ws://localhost:8081");
+
+            // Import modules
+            import { parse } from "./js/functions.mjs";
+
+            // listen on close event
+            websocket.addEventListener("close", (event) => {
+                console.log("Server died...", event);
+            });
+
+            // listen on message event
+            websocket.addEventListener("message", (event) => {
+                console.log(event);
+            });
+
+            // använd endast data - object destructing
+            websocket.addEventListener("message", ({ data }) => {
+                // console.log(data);
+                let obj = parse(data);
+                console.log(obj);
+            });
+
+            // html elements
+            const inputNickname = document.getElementById("inputNickname");
+            const buttonNickname = document.getElementById("buttonNickname");
+            const inputText = document.getElementById("inputText");
+
+            // focus nickname
+            inputNickname.focus();
+
+            let nickname;
+            // listen nickname button
+            buttonNickname.addEventListener("click", () => {
+                // validate inputNickname
+                nickname = inputNickname.value;
+                if (nickname.length > 2) {
+                    inputNickname.setAttribute("disabled", "disabled");
+                    buttonNickname.classList.toggle("hidden");
+
+                    // display text field for new messages
+                    inputText.classList.toggle("hidden");
+                    inputText.focus();
+                }
+            });
+
+            inputText.addEventListener("keydown", (e) => {
+                console.log(e);
+            });
+        </script>
+    </body>
+</html>
