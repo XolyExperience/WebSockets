@@ -29,16 +29,22 @@ wss.on("connection", (ws) => {
     ws.on("message", (data) => {
         console.log("Message recived: %s", data);
 
-        // Use parse date
+        // Use parse function
         let obj = parse(data);
-        console.log(obj);
-        // reply as JSON
-        let objReply = {
-            type: "message",
-            data: "Hi client, I got a message for you: some magic -  ",
-        };
 
-        ws.send(JSON.stringify(objReply));
+        // Decide what to do
+        switch (obj.type) {
+            case "chat":
+                // Broadcast
+                wss.broadcastButExclude(JSON.stringify(obj), ws);
+                break;
+
+            default:
+                console.log(`Message type is: ${obj.type}`);
+                break;
+        }
+
+        console.log(obj);
     });
 });
 
